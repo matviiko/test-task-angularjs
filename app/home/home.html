@@ -1,0 +1,95 @@
+<div class="home">
+
+    <div class="container-fluid">
+        <div class="row">
+           <div class="col-12 col-main">
+              <h4 class="main-title">Permission</h4>
+                 <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>
+                                <p class="main-title">
+                                    Sections
+                                </p>
+                            </th>
+                            <th>
+                                <label class="item" for="check-all-view">
+                                    <input id="check-all-view" type="checkbox"
+                                           ng-model="$ctrl.isAllCheckedView"
+                                           ng-change="$ctrl.onCheckUncheckAll('view', 'isAllCheckedView')"
+                                    >
+                                    Check All
+                                </label>
+                            </th>
+                            <th>
+                                <label class="item" for="check-all-edit">
+                                    <input id="check-all-edit" type="checkbox"
+                                           ng-model="$ctrl.isAllCheckedEdit"
+                                           ng-change="$ctrl.onCheckUncheckAll('edit', 'isAllCheckedEdit')"
+                                           ng-disabled="$ctrl.isDisabledEditAll && !$ctrl.isAllCheckedView "
+                                    >
+                                    Check All
+                                </label>
+                            </th>
+                            <th>
+                                <label class="item" for="check-all-remove">
+                                    <input id="check-all-remove" type="checkbox"
+                                           ng-model="$ctrl.isAllCheckedRemove"
+                                           ng-change="$ctrl.onCheckUncheckAll('remove', 'isAllCheckedRemove')"
+                                           ng-disabled="$ctrl.isDisabledRemoveAll && !$ctrl.isAllCheckedEdit"
+                                    >
+                                    Check All
+                                </label>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="top-border" ng-repeat="item in $ctrl.sectionList">
+                            <th scope="row">
+                                <p class="title capitalize">
+                                    {{item.section }}
+                                </p>
+                            </th>
+                            <td>
+                                <label class="item" for="view_{{ $index }}" >
+                                    <input id="view_{{ $index }}" type="checkbox"
+                                           ng-model="item.permission.view"
+                                           ng-change="$ctrl.onCheckUncheckHeader('view', 'isAllCheckedView', null)"
+                                    >
+                                    View
+                                </label>
+                            </td>
+                            <td>
+                                <label class="item" for="{{item.section }}_edit_{{ $index }}">
+                                    <input id="{{item.section }}_edit_{{ $index }}" type="checkbox"
+                                           ng-disabled="!item.permission.view" ng-model="item.permission.edit"
+                                           ng-change="$ctrl.onCheckUncheckHeader('edit', 'isAllCheckedEdit', 'isDisabledEditAll')"
+                                    >
+                                    Edit
+                                </label>
+                            </td>
+                            <td>
+                                <label class="item" for="{{item.section }}_remove_{{ $index }}">
+                                    <input id="{{item.section }}_remove_{{ $index }}" type="checkbox"
+                                           ng-disabled="!item.permission.edit" ng-model="item.permission.remove"
+                                           ng-change="$ctrl.onCheckUncheckHeader('remove', 'isAllCheckedRemove', 'isDisabledRemoveAll')"
+                                    >
+                                    Remove
+                                </label>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+              <div class="container-btn">
+                  <button ng-click="$ctrl.onSave($ctrl.sectionList)"
+                          class="save btn ">
+                      Save
+                  </button>
+              </div>
+          </div>
+        </div>
+
+    </div>
+</div>
