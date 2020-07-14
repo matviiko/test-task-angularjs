@@ -63,11 +63,25 @@ class HomeController implements ng.IController {
         ];
     }
 
-    onSave(sectionList) {
+    /**
+     *   Send data in localStorage
+     *
+     * @param sectionList - array sections this permissions
+     */
+
+    onSave(sectionList: Array<ISelection>): void {
         localStorage.setItem('data', JSON.stringify(sectionList));
     }
 
-    onCheckUncheckHeader(key, isAllChecked, isDisabled) {
+    /**
+     * Checking all boxes into body of table
+     *
+     * @param key - name to get state of the permission;
+     * @param isAllChecked - name to get state of CheckAll into column
+     * @param isDisabled - name to get state of disable on CheckAll
+     */
+
+    onCheckUncheckHeader(key: string, isAllChecked: string, isDisabled: string): void {
         this.sectionList.forEach(item => {
             if (!item.permission[key]) {
                 this[isAllChecked] = false;
@@ -76,13 +90,27 @@ class HomeController implements ng.IController {
         this.checkDisabled(key, isDisabled);
     }
 
-    onCheckUncheckAll(key, isAllChecked) {
+    /**
+     * Check or Uncheck all boxes when use header checkbox
+     *
+     * @param key - name to get state of the permission;
+     * @param isAllChecked - name to get state of all boxes permission
+     */
+
+    onCheckUncheckAll(key: string, isAllChecked: string): void {
         this.sectionList.forEach(item => {
             item.permission[key] = this[isAllChecked];
         });
     }
 
-    checkDisabled(key, isDisabled) {
+    /**
+     * set disable state to header checkbox
+     *
+     * @param key - name to get state of the permission;
+     * @param isDisabled - name to get state of disable on CheckAll
+     */
+
+    checkDisabled(key: string, isDisabled: string): void {
         if (!!isDisabled) {
             let check = 0;
             this.sectionList.forEach(item => {
