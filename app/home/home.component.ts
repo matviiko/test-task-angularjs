@@ -79,15 +79,18 @@ class HomeController implements ng.IController {
      * @param key - name to get state of the permission;
      * @param isAllChecked - name to get state of CheckAll into column
      * @param isDisabled - name to get state of disable on CheckAll
+     * @param sectionName - section name
      */
 
-    onCheckUncheckHeader(key: string, isAllChecked: string, isDisabled: string): void {
+    onCheckUncheckHeader(key: string, isAllChecked: string, isDisabled: string, sectionName: string): void {
         this.sectionList.forEach(item => {
             if (!item.permission[key]) {
                 this[isAllChecked] = false;
             }
         });
         this.checkDisabled(key, isDisabled);
+
+        this.uncheckPermission(sectionName);
     }
 
     /**
@@ -121,6 +124,28 @@ class HomeController implements ng.IController {
             });
         }
     }
+
+    /**
+     * uncheck other permission
+     *
+     * @param name - section name of permission
+     */
+
+    uncheckPermission(name: string): void {
+        let index = this.sectionList.findIndex(item => item.section === name);
+        if (index !== -1) {
+            if (!this.sectionList[index].permission.view) {
+                this.sectionList[index].permission.edit = false;
+                this.sectionList[index].permission.remove = false;
+                this.isAllCheckedEdit = false;
+                this.isAllCheckedRemove = false;
+            } else if (!this.sectionList[index].permission.edit) {
+                this.sectionList[index].permission.remove = false;
+                this.isAllCheckedRemove = false;
+            }
+        }
+    }
+
 }
 
 export class HomeComponent implements ng.IComponentOptions {
